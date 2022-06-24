@@ -1,12 +1,10 @@
 ---
-title: "6/23"
 author: "Samruddhi Naik"
-date: '2022-06-24'
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 
 library(tidyverse)
 library(billboard)
@@ -25,8 +23,19 @@ x <- wiki_hot_100s |>
 
 x |> 
   group_by(year) |> 
-  distinct(artist) |> 
-  summarize(distinct_artists = n())
-
+    distinct(artist) |> 
+    summarize(distinct_artists = n()) |> 
+    select(year, distinct_artists) |> 
+    ggplot(aes(x = year, 
+                y = distinct_artists)) +
+      geom_point() +
+      geom_smooth(method = "lm", formula = y ~ x, se = FALSE ) +
+      theme_classic() +
+      labs(title = "Distinct Artists By Year",
+            subtitle = "As time increases, the number of distince artists also increases.",
+              x = "Year", 
+                y = "Number of Distinct Artists")
+  
 ```
+
 
