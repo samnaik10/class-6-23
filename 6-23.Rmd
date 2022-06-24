@@ -1,0 +1,32 @@
+---
+title: "6/23"
+author: "Samruddhi Naik"
+date: '2022-06-24'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(billboard)
+
+```
+
+```{r}
+x <- wiki_hot_100s |>
+  as_tibble() |> 
+  mutate(year = parse_number(year))
+  
+```
+
+
+```{r}
+
+x |> 
+  group_by(year) |> 
+  distinct(artist) |> 
+  summarize(distinct_artists = n())
+
+```
+
